@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import Button from './Button';
+//import Button from './Button';
 import RenderIf from "../common/renderIf";
 import './timer.css';
 
@@ -10,7 +10,8 @@ class Timer extends Component {
         step: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         autoStart: PropTypes.bool,
         reverse: PropTypes.bool,
-        onTimeOut: PropTypes.func
+        onTimeOut: PropTypes.func,
+        onTimeStop: PropTypes.func
 
     };
 
@@ -19,7 +20,9 @@ class Timer extends Component {
         step: 1,
         autoStart: false,
         reverse: true,
-        onTimeOut: console.log.bind(console, "Time out!")
+        onTimeOut: console.log.bind(console, "Time out!"),
+        onTimeStop: () => {}
+
     };
 
     state = {
@@ -87,18 +90,20 @@ class Timer extends Component {
         this.setState({
             isStarted: bool,
         })
-    }
+    };
 
     stopHandler = () => {
         clearInterval(this.timerId);
         this.timerId = null;
         this.toggleIsStarted(false);
+        this.props.onTimeStop(this.props.time, this.state.time);
     };
-    resetHandler = () => {
-        this.setState({
-            time: 0
-        })
-    };
+
+    // resetHandler = () => {
+    //     this.setState({
+    //         time: 0
+    //     })
+    // };
 
     componentDidMount(){
         if(this.props.autoStart){
