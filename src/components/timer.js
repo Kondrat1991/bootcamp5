@@ -43,7 +43,7 @@ class Timer extends Component {
     }
 
     timerTick = () => {
-        console.log(`${this.state.time} - tick`);
+        console.log(`${this.state.time} `);
         if (this.state.time <= 0 && this.props.reverse) {
             this.props.onTimeOut(this.state.time);
             this.stopHandler();
