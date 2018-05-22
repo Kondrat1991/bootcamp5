@@ -7,15 +7,15 @@ class Post extends Component {
         likes: PropTypes.number,
         title: PropTypes.string.isRequired,
         children: PropTypes.any.isRequired
-    }
+    };
 
     static defaultProps = {
         onLike: () => {},
         likes: 0
-    }
+    };
     state = {
         liked: false
-    }
+    };
 
     toggleLike() {
         this.setState((prevState)=> {
@@ -26,8 +26,6 @@ class Post extends Component {
             }
         });
     }
-
-
 
     render() {
         let opacity = this.state.liked ? 1 : 0.5;
