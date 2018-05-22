@@ -1,17 +1,38 @@
 import React, {Fragment, Component} from 'react';
-//import Post from './components/post';
-//import PostList from './components/postsList';
-// import Timer from './components/timer';
-// import RenderIf from "./common/renderIf";
-//import Profile from "./components/profile/profile";
-import  Manager from "./components/profile/manager";
+import Post from './components/post';
+import PostList from './components/postsList'
+import Timer from './components/timer';
+import Profile from './components/profile/profile';
+import Nano from './components/profile/profile.nano';
+import RenderIf from "./common/renderIf";
+import Manager from './components/profile/manager';
+import withImage from './components/profile/withImage';
+const NanoProfile = withImage(Nano);
 
-class App extends Component{
+class App extends Component {
 
     state = {
         showTimer: false,
-        image: '/Cat03.jpg'
-    };
+        image: '/panda1.jpg',
+    }
+
+    onChangeImage = () => {
+        this.setState({
+            image: '/cat1.jpeg',
+        })
+    }
+
+    onDelete = () => {
+        this.setState({
+            image: void 0,
+        })
+    }
+
+    onDefaultImage = () => {
+        this.setState({
+            image: "/panda1.jpg"
+        })
+    }
 
     switchTimer = () => {
         this.setState((prevState) => {
@@ -19,31 +40,21 @@ class App extends Component{
                 showTimer: !prevState.showTimer
             }
         })
-    };
-
-    showTotalTime =(initialTime, stopTime) =>  {
-        console.log((initialTime - stopTime));
-    };
-
-    onChangeImage = () => {
-        this.setState({image: '/Cat03.jpg'});
-    };
-
-    onDelete = () => {
-        this.setState({image: void 0})
-    };
-
-    onDefautImage = () => {
-        this.setState({image:})
     }
 
-    render(){
+    render() {
         return (
             <Fragment>
-                 <Manager image={this.state.image}/>
-                {/*<Timer time ={60} onTimeStop={this.showTotalTime} reverse autoStart />*/}
+                <div> <NanoProfile/> Username</div>
+                <Timer time="5" onTimeOut={this.switchTimer}/>
+                <button onClick={this.switchTimer}>Переключить таймер</button>
+                <RenderIf condition={this.state.showTimer}>
+                    <Timer time="6000" step="2" autoStart/>
+                </RenderIf>
+                <Timer time='0' reverse={false} autoStart/>
+                <Manager />
             </Fragment>
-        )
+        );
     }
 }
 
